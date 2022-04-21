@@ -9,11 +9,11 @@ This package allows you to use your SCSS variables in your JS code. Specifically
 Install via npm or yarn:
 
 ```sh
-npm install scss-to-json --save-dev
+npm install scss2json --save-dev
 ```
 
 ```sh
-yarn add scss-to-json --dev
+yarn add scss2json --dev
 ```
 
 ## Known Issues
@@ -42,7 +42,7 @@ $text-color-light: lighten($text-color, 15%);
 $border-color: #123 !global; // use for all borders
 ```
 
-When run on that code above, scss-to-json will output the below JSON:
+When run on that code above, scss2json will output the below JSON:
 
 ```js
 {
@@ -54,14 +54,14 @@ When run on that code above, scss-to-json will output the below JSON:
 }
 ```
 
-Note that scss-to-json will filter out flags (marked with an !) and comments and evaluate Sass functions before it produces the JSON object.
+Note that scss2json will filter out flags (marked with an !) and comments and evaluate Sass functions before it produces the JSON object.
 
 ## Using this Package
 
 In your CommonJS JavaScript file, requiring this package will return a function that takes a file path of your SCSS variables file. It also takes an optional options object, which is detailed in the next section.
 
 ```js
-var scssToJson = require("scss-to-json");
+var scssToJson = require("scss2json");
 var path = require("path");
 
 var filePath = path.resolve(__dirname, "colors.scss");
@@ -77,7 +77,7 @@ The second argument of the returned function is an optional options object. Each
 SCSS variables files sometimes rely on other SCSS variables defined earlier in your import tree. In order to keep these files isolated (and still produce JSON), you can specify an array of files that your given file depends on. For example, below we are trying to convert our color mapping file, but it depends on the actual color definitions which are found in a different file.
 
 ```js
-var scssToJson = require("scss-to-json");
+var scssToJson = require("scss2json");
 var path = require("path");
 
 var filePath = path.resolve(__dirname, "color-mapping.scss");
@@ -104,10 +104,10 @@ html {
 
 This will keep `$font-size` scoped locally inside that block, while allowing it to be used to derive global variables marked with the `!global` flag. These variables will be available throughout your SCSS import tree.
 
-If you use this method in your SCSS variables file, you can provide an option to scss-to-json to output only the global variables to JSON. The option takes the name of the scoping placeholder as a string.
+If you use this method in your SCSS variables file, you can provide an option to scss2json to output only the global variables to JSON. The option takes the name of the scoping placeholder as a string.
 
 ```js
-var scssToJson = require("scss-to-json");
+var scssToJson = require("scss2json");
 var path = require("path");
 
 var filePath = path.resolve(__dirname, "variables.scss");
@@ -126,7 +126,7 @@ $second-variable: blue;
 ```
 
 ```js
-var scssToJson = require('scss-to-json');
+var scssToJson = require('scss2json');
 var path = require('path');
 var camelCase = require('lodash.camelCase');
 var filePath = path.resolve(__dirname, 'variables.scss');
@@ -137,7 +137,7 @@ var colors = scssToJson(filePath, {
 });
 ```
 
-When run on the code above, scss-to-json will output the following JSON:
+When run on the code above, scss2json will output the following JSON:
 
 ```js
 {
@@ -150,7 +150,7 @@ The value returned by the `rename` function is used as-is, so be sure to return 
 
 ## CLI
 
-You can also use the CLI `scss-to-json <file>`.
+You can also use the CLI `scss2json <file>`.
 
 ## Contributing
 
