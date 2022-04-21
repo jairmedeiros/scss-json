@@ -7,7 +7,7 @@ var sinon = require('sinon');
 describe('Compile', function() {
   var correctlyWrapped;
   var minifiedWrapped;
-  var nodeSassStub;
+  var sassStub;
   var cssminStub;
   var Compile;
   var scssString;
@@ -16,13 +16,13 @@ describe('Compile', function() {
     scssString = '1px solid blue';
     correctlyWrapped = '.test { content: ' + scssString + ' };';
     minifiedWrapped = '.test{content:' + scssString + '}';
-    nodeSassStub = {
+    sassStub = {
       renderSync: sinon.stub().returns({ css: correctlyWrapped })
     };
     cssminStub = sinon.stub().returns(minifiedWrapped);
 
     Compile = proxyquire('../src/compile', {
-      'node-sass': nodeSassStub,
+      'sass': sassStub,
       'cssmin': cssminStub
     });
   });
