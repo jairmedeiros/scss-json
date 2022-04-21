@@ -52,7 +52,7 @@ describe('Declaration', function() {
     beforeEach(function() {
       sinon.stub(Declaration.prototype, '_parse');
       declaration = new Declaration(scssString, declarationStoreStub);
-      sinon.restore(Declaration.prototype, '_parse');
+      sinon.restore();
     });
 
     it('should assign this.variable with a variable object with the correct value', function() {

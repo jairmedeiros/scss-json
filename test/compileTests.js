@@ -47,7 +47,7 @@ describe('Compile', function() {
     it('returns the compiled scss given to it as an argument', function() {
       var compiled = Compile.fromString(scssString);
 
-      assert.ok(nodeSassStub.renderSync.calledWith({ data: correctlyWrapped }));
+      assert.ok(sassStub.renderSync.calledWith({ data: correctlyWrapped }));
       assert.ok(cssminStub.calledWith(correctlyWrapped));
       assert.strictEqual(compiled, scssString);
     });
