@@ -61,11 +61,11 @@ Note that scss2json will filter out flags (marked with an !) and comments and ev
 In your CommonJS JavaScript file, requiring this package will return a function that takes a file path of your SCSS variables file. It also takes an optional options object, which is detailed in the next section.
 
 ```js
-var scssToJson = require("scss2json");
+var scss2Json = require("scss2json");
 var path = require("path");
 
 var filePath = path.resolve(__dirname, "colors.scss");
-var colors = scssToJson(filePath);
+var colors = scss2Json(filePath);
 ```
 
 ## Options
@@ -77,12 +77,12 @@ The second argument of the returned function is an optional options object. Each
 SCSS variables files sometimes rely on other SCSS variables defined earlier in your import tree. In order to keep these files isolated (and still produce JSON), you can specify an array of files that your given file depends on. For example, below we are trying to convert our color mapping file, but it depends on the actual color definitions which are found in a different file.
 
 ```js
-var scssToJson = require("scss2json");
+var scss2Json = require("scss2json");
 var path = require("path");
 
 var filePath = path.resolve(__dirname, "color-mapping.scss");
 var dependencyPath = path.resolve(__dirname, "colors.scss");
-var colors = scssToJson(filePath, {
+var colors = scss2Json(filePath, {
   dependencies: [{ path: dependencyPath }],
 });
 ```
@@ -107,11 +107,11 @@ This will keep `$font-size` scoped locally inside that block, while allowing it 
 If you use this method in your SCSS variables file, you can provide an option to scss2json to output only the global variables to JSON. The option takes the name of the scoping placeholder as a string.
 
 ```js
-var scssToJson = require("scss2json");
+var scss2Json = require("scss2json");
 var path = require("path");
 
 var filePath = path.resolve(__dirname, "variables.scss");
-var colors = scssToJson(filePath, {
+var colors = scss2Json(filePath, {
   scope: "%scoped",
 });
 ```
@@ -126,11 +126,11 @@ $second-variable: blue;
 ```
 
 ```js
-var scssToJson = require('scss2json');
+var scss2Json = require('scss2json');
 var path = require('path');
 var camelCase = require('lodash.camelCase');
 var filePath = path.resolve(__dirname, 'variables.scss');
-var colors = scssToJson(filePath, {
+var colors = scss2Json(filePath, {
   rename: function(name) {
     return camelCase(name.replace('$', ''));
   }

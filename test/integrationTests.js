@@ -2,7 +2,7 @@
 
 var path = require('path');
 var assert = require('assert');
-var scssToJson = require('../main.js');
+var scss2Json = require('../main.js');
 
 describe('Integration Tests', function() {
   var output;
@@ -33,7 +33,7 @@ describe('Integration Tests', function() {
 
     it('should compile the sample file to the correct JS object', function() {
       var filePath = path.resolve(__dirname, 'scss', 'test.scss');
-      var compiled = scssToJson(filePath);
+      var compiled = scss2Json(filePath);
 
       assert.deepEqual(compiled, output);
     });
@@ -52,7 +52,7 @@ describe('Integration Tests', function() {
     it('should compile the sample file to the correct JS object', function() {
       var filePath = path.resolve(__dirname, 'scss', 'has-dependents.scss');
       var dependencyPath = path.resolve(__dirname, 'scss', 'dependency.scss');
-      var compiled = scssToJson(filePath, {
+      var compiled = scss2Json(filePath, {
         dependencies: [
           { path: dependencyPath }
         ]
@@ -72,7 +72,7 @@ describe('Integration Tests', function() {
 
     it('should compile the sample file to the correct JS object', function() {
       var filePath = path.resolve(__dirname, 'scss', 'scoped.scss');
-      var compiled = scssToJson(filePath, {
+      var compiled = scss2Json(filePath, {
         scope: '%scoped'
       });
 
@@ -91,7 +91,7 @@ describe('Integration Tests', function() {
     it('should compile the sample file to the correct JS object', function() {
       var filePath = path.resolve(__dirname, 'scss', 'scoped-has-dependents.scss');
       var dependencyPath = path.resolve(__dirname, 'scss', 'scoped-dependency.scss');
-      var compiled = scssToJson(filePath, {
+      var compiled = scss2Json(filePath, {
         scope: '%scoped',
         dependencies: [
           { path: dependencyPath, scope: '%scoped' }
@@ -104,7 +104,7 @@ describe('Integration Tests', function() {
   context('if rename option is specified', function() {
     it('should compile the sample file to the correct JS object', function() {
       var filePath = path.resolve(__dirname, 'scss', 'small-test.scss');
-      var compiled = scssToJson(filePath, {
+      var compiled = scss2Json(filePath, {
         rename: function(name) {
           return name.replace('$', 'renamed-');
         }
@@ -119,7 +119,7 @@ describe('Integration Tests', function() {
 
     it('should retain the last-seen value for matching names', function() {
       var filePath = path.resolve(__dirname, 'scss', 'small-test.scss');
-      var compiled = scssToJson(filePath, {
+      var compiled = scss2Json(filePath, {
         rename: function() {
           return 'allTheSame';
         }

@@ -5,7 +5,7 @@ var proxyquire = require('proxyquire');
 var sinon = require('sinon');
 
 describe('Main', function() {
-  var scssToJson;
+  var scss2Json;
   var ProcessorStub;
   var returnedObject;
   var path;
@@ -20,7 +20,7 @@ describe('Main', function() {
       this.object = returnedObject;
     });
 
-    scssToJson = proxyquire('../main', {
+    scss2Json = proxyquire('../main', {
       './src/processor': ProcessorStub
     });
 
@@ -32,7 +32,7 @@ describe('Main', function() {
 
   describe('Constructor', function() {
     it('create a new processor and return its object', function() {
-      var json = scssToJson(path, options);
+      var json = scss2Json(path, options);
 
       assert.ok(ProcessorStub.calledOnce);
       assert.ok(ProcessorStub.calledWith(path, options));
