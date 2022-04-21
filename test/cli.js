@@ -4,7 +4,7 @@
 var assert = require('assert');
 var path = require('path');
 var spawn = require('cross-spawn');
-var cli = path.join(__dirname, '../bin/scss-to-json');
+var cli = path.join(__dirname, '../bin/scss2json');
 var PKG_VERSION = require('../package.json').version;
 
 function callAndExpectNoErrors(args, cb) {
