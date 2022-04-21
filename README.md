@@ -1,4 +1,4 @@
-# scss2json - forked from [scss-to-json](https://github.com/ryanbahniuk/scss-to-json)
+# scss2json - forked from [scss-to-json](https://github.com/ryanbahniuk/scss-to-json) ![Build](https://github.com/jairmedeiros/scss2json/actions/workflows/build.yml/badge.svg)
 
 > A package to require SCSS variables in JSON format.
 
