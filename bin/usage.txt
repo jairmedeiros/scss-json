@@ -1,4 +1,4 @@
-Usage: node scss2json [options] [<file>]
+Usage: node scss-json [options] [<file>]
 
 Options:
 

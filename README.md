@@ -1,4 +1,4 @@
-# scss2json - forked from [scss-to-json](https://github.com/ryanbahniuk/scss-to-json) ![Build](https://github.com/jairmedeiros/scss2json/actions/workflows/build.yml/badge.svg)
+# scss-json - forked from [scss-to-json](https://github.com/ryanbahniuk/scss-to-json) ![Build](https://github.com/jairmedeiros/scss-json/actions/workflows/build.yml/badge.svg)
 
 > A package to require SCSS variables in JSON format.
 
@@ -9,18 +9,20 @@ This package allows you to use your SCSS variables in your JS code. Specifically
 Install via npm or yarn:
 
 ```sh
-npm install scss2json --save-dev
+npm install scss-json --save-dev
 ```
 
 ```sh
-yarn add scss2json --dev
+yarn add scss-json --dev
 ```
 
 ## Known Issues
+
 There are some issues that need to be fixed:
+
 - [No https path in scss](https://github.com/ryanbahniuk/scss-to-json/issues/26).
 - [Variable which including '//' will be regarded as comment](https://github.com/ryanbahniuk/scss-to-json/issues/20).
-- [Not correct variable names with '__'](https://github.com/ryanbahniuk/scss-to-json/issues/19).
+- [Not correct variable names with '\_\_'](https://github.com/ryanbahniuk/scss-to-json/issues/19).
 - [Parenthesis not working property](https://github.com/ryanbahniuk/scss-to-json/issues/16).
 - **[Support for maps](https://github.com/ryanbahniuk/scss-to-json/issues/15).**
 - [Leading comments break compiling](https://github.com/ryanbahniuk/scss-to-json/issues/13).
@@ -42,7 +44,7 @@ $text-color-light: lighten($text-color, 15%);
 $border-color: #123 !global; // use for all borders
 ```
 
-When run on that code above, scss2json will output the below JSON:
+When run on that code above, scss-json will output the below JSON:
 
 ```js
 {
@@ -54,18 +56,18 @@ When run on that code above, scss2json will output the below JSON:
 }
 ```
 
-Note that scss2json will filter out flags (marked with an !) and comments and evaluate Sass functions before it produces the JSON object.
+Note that scss-json will filter out flags (marked with an !) and comments and evaluate Sass functions before it produces the JSON object.
 
 ## Using this Package
 
 In your CommonJS JavaScript file, requiring this package will return a function that takes a file path of your SCSS variables file. It also takes an optional options object, which is detailed in the next section.
 
 ```js
-var scss2Json = require("scss2json");
+var scssJson = require("scss-json");
 var path = require("path");
 
 var filePath = path.resolve(__dirname, "colors.scss");
-var colors = scss2Json(filePath);
+var colors = scssJson(filePath);
 ```
 
 ## Options
@@ -77,12 +79,12 @@ The second argument of the returned function is an optional options object. Each
 SCSS variables files sometimes rely on other SCSS variables defined earlier in your import tree. In order to keep these files isolated (and still produce JSON), you can specify an array of files that your given file depends on. For example, below we are trying to convert our color mapping file, but it depends on the actual color definitions which are found in a different file.
 
 ```js
-var scss2Json = require("scss2json");
+var scssJson = require("scss-json");
 var path = require("path");
 
 var filePath = path.resolve(__dirname, "color-mapping.scss");
 var dependencyPath = path.resolve(__dirname, "colors.scss");
-var colors = scss2Json(filePath, {
+var colors = scssJson(filePath, {
   dependencies: [{ path: dependencyPath }],
 });
 ```
@@ -104,14 +106,14 @@ html {
 
 This will keep `$font-size` scoped locally inside that block, while allowing it to be used to derive global variables marked with the `!global` flag. These variables will be available throughout your SCSS import tree.
 
-If you use this method in your SCSS variables file, you can provide an option to scss2json to output only the global variables to JSON. The option takes the name of the scoping placeholder as a string.
+If you use this method in your SCSS variables file, you can provide an option to scss-json to output only the global variables to JSON. The option takes the name of the scoping placeholder as a string.
 
 ```js
-var scss2Json = require("scss2json");
+var scssJson = require("scss-json");
 var path = require("path");
 
 var filePath = path.resolve(__dirname, "variables.scss");
-var colors = scss2Json(filePath, {
+var colors = scssJson(filePath, {
   scope: "%scoped",
 });
 ```
@@ -126,18 +128,18 @@ $second-variable: blue;
 ```
 
 ```js
-var scss2Json = require('scss2json');
-var path = require('path');
-var camelCase = require('lodash.camelCase');
-var filePath = path.resolve(__dirname, 'variables.scss');
-var colors = scss2Json(filePath, {
-  rename: function(name) {
-    return camelCase(name.replace('$', ''));
-  }
+var scssJson = require("scss-json");
+var path = require("path");
+var camelCase = require("lodash.camelCase");
+var filePath = path.resolve(__dirname, "variables.scss");
+var colors = scssJson(filePath, {
+  rename: function (name) {
+    return camelCase(name.replace("$", ""));
+  },
 });
 ```
 
-When run on the code above, scss2json will output the following JSON:
+When run on the code above, scss-json will output the following JSON:
 
 ```js
 {
@@ -150,7 +152,7 @@ The value returned by the `rename` function is used as-is, so be sure to return 
 
 ## CLI
 
-You can also use the CLI `scss2json <file>`.
+You can also use the CLI `scss-json <file>`.
 
 ## Contributing
 

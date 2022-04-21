@@ -1,8 +1,8 @@
 {
-  "name": "scss2json",
+  "name": "scss-json",
   "version": "1.0.0",
   "description": "A package to export SCSS variables in JSON format",
-  "homepage": "https://github.com/jairmedeiros/scss2json",
+  "homepage": "https://github.com/jairmedeiros/scss-json",
   "keywords": [
     "scss",
     "sass",
@@ -13,14 +13,14 @@
     "email": "jairmedeiros@protonmail.com"
   },
   "bin": {
-    "scss2json": "./bin/scss2json"
+    "scss-json": "./bin/scss-json"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/jairmedeiros/scss2json.git"
+    "url": "git://github.com/jairmedeiros/scss-json.git"
   },
   "bugs": {
-    "url": "https://github.com/jairmedeiros/scss2json/issues"
+    "url": "https://github.com/jairmedeiros/scss-json/issues"
   },
   "license": "MIT",
   "main": "main.js",

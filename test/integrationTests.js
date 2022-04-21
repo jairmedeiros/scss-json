@@ -1,24 +1,24 @@
-'use strict';
+"use strict";
 
-var path = require('path');
-var assert = require('assert');
-var scss2Json = require('../main.js');
+var path = require("path");
+var assert = require("assert");
+var scssJson = require("../main.js");
 
-describe('Integration Tests', function() {
+describe("Integration Tests", function () {
   var output;
 
-  context('if file has no dependencies', function() {
-    beforeEach(function() {
+  context("if file has no dependencies", function () {
+    beforeEach(function () {
       output = {
-        "$first": "52px",
+        $first: "52px",
         "$second-variable": "red",
         "$global-variable": "#123",
-        "$references": "red",
+        $references: "red",
         "$scss-function": "#1e3c59",
         "$scss-function-with-variable": "#0b1520",
-        "$image": "url(sample.svg)",
-        "$image-with-quotes": "url(\"sample.svg\")",
-        "$calculation": "40px",
+        $image: "url(sample.svg)",
+        "$image-with-quotes": 'url("sample.svg")',
+        $calculation: "40px",
         "$multiple-variables": "52px solid red",
         "$multiple-calculations": "40px",
         "$gray-50": "#fff",
@@ -27,87 +27,94 @@ describe('Integration Tests', function() {
         "$font-size-small": "15px",
         "$font-size-large": "18px",
         "$icon-font-size": "15px",
-        "$icon-font-size-lg": "18px"
+        "$icon-font-size-lg": "18px",
       };
     });
 
-    it('should compile the sample file to the correct JS object', function() {
-      var filePath = path.resolve(__dirname, 'scss', 'test.scss');
-      var compiled = scss2Json(filePath);
+    it("should compile the sample file to the correct JS object", function () {
+      var filePath = path.resolve(__dirname, "scss", "test.scss");
+      var compiled = scssJson(filePath);
 
       assert.deepEqual(compiled, output);
     });
   });
 
-  context('if file has dependencies', function() {
-    beforeEach(function() {
+  context("if file has dependencies", function () {
+    beforeEach(function () {
       output = {
-        "$first": "#00f",
+        $first: "#00f",
         "$global-variable": "#f00",
-        "$references": "#00f",
-        "$scss-function-with-variable": "#e60000"
+        $references: "#00f",
+        "$scss-function-with-variable": "#e60000",
       };
     });
 
-    it('should compile the sample file to the correct JS object', function() {
-      var filePath = path.resolve(__dirname, 'scss', 'has-dependents.scss');
-      var dependencyPath = path.resolve(__dirname, 'scss', 'dependency.scss');
-      var compiled = scss2Json(filePath, {
-        dependencies: [
-          { path: dependencyPath }
-        ]
+    it("should compile the sample file to the correct JS object", function () {
+      var filePath = path.resolve(__dirname, "scss", "has-dependents.scss");
+      var dependencyPath = path.resolve(__dirname, "scss", "dependency.scss");
+      var compiled = scssJson(filePath, {
+        dependencies: [{ path: dependencyPath }],
       });
 
       assert.deepEqual(compiled, output);
     });
   });
 
-  context('if file is scoped', function() {
-    beforeEach(function() {
+  context("if file is scoped", function () {
+    beforeEach(function () {
       output = {
         "$global-variable": "17px",
-        "$global-with-function": "#0b1520"
+        "$global-with-function": "#0b1520",
       };
     });
 
-    it('should compile the sample file to the correct JS object', function() {
-      var filePath = path.resolve(__dirname, 'scss', 'scoped.scss');
-      var compiled = scss2Json(filePath, {
-        scope: '%scoped'
+    it("should compile the sample file to the correct JS object", function () {
+      var filePath = path.resolve(__dirname, "scss", "scoped.scss");
+      var compiled = scssJson(filePath, {
+        scope: "%scoped",
       });
 
       assert.deepEqual(compiled, output);
     });
   });
 
-  context('if file is scoped and has dependencies on a scoped file', function() {
-    beforeEach(function() {
-      output = {
-        "$button-color-global": "#00f",
-        "$tag-color-global": "#0f0"
-      };
-    });
-
-    it('should compile the sample file to the correct JS object', function() {
-      var filePath = path.resolve(__dirname, 'scss', 'scoped-has-dependents.scss');
-      var dependencyPath = path.resolve(__dirname, 'scss', 'scoped-dependency.scss');
-      var compiled = scss2Json(filePath, {
-        scope: '%scoped',
-        dependencies: [
-          { path: dependencyPath, scope: '%scoped' }
-        ]
+  context(
+    "if file is scoped and has dependencies on a scoped file",
+    function () {
+      beforeEach(function () {
+        output = {
+          "$button-color-global": "#00f",
+          "$tag-color-global": "#0f0",
+        };
       });
 
-      assert.deepEqual(compiled, output);
-    });
-  });
-  context('if rename option is specified', function() {
-    it('should compile the sample file to the correct JS object', function() {
-      var filePath = path.resolve(__dirname, 'scss', 'small-test.scss');
-      var compiled = scss2Json(filePath, {
-        rename: function(name) {
-          return name.replace('$', 'renamed-');
-        }
+      it("should compile the sample file to the correct JS object", function () {
+        var filePath = path.resolve(
+          __dirname,
+          "scss",
+          "scoped-has-dependents.scss"
+        );
+        var dependencyPath = path.resolve(
+          __dirname,
+          "scss",
+          "scoped-dependency.scss"
+        );
+        var compiled = scssJson(filePath, {
+          scope: "%scoped",
+          dependencies: [{ path: dependencyPath, scope: "%scoped" }],
+        });
+
+        assert.deepEqual(compiled, output);
+      });
+    }
+  );
+  context("if rename option is specified", function () {
+    it("should compile the sample file to the correct JS object", function () {
+      var filePath = path.resolve(__dirname, "scss", "small-test.scss");
+      var compiled = scssJson(filePath, {
+        rename: function (name) {
+          return name.replace("$", "renamed-");
+        },
       });
       output = {
         "renamed-first": "52px",
@@ -117,15 +124,15 @@ describe('Integration Tests', function() {
       assert.deepEqual(compiled, output);
     });
 
-    it('should retain the last-seen value for matching names', function() {
-      var filePath = path.resolve(__dirname, 'scss', 'small-test.scss');
-      var compiled = scss2Json(filePath, {
-        rename: function() {
-          return 'allTheSame';
-        }
+    it("should retain the last-seen value for matching names", function () {
+      var filePath = path.resolve(__dirname, "scss", "small-test.scss");
+      var compiled = scssJson(filePath, {
+        rename: function () {
+          return "allTheSame";
+        },
       });
       output = {
-        "allTheSame": "red"
+        allTheSame: "red",
       };
 
       assert.deepEqual(compiled, output);
