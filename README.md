@@ -16,6 +16,17 @@ npm install scss-to-json --save-dev
 yarn add scss-to-json --dev
 ```
 
+## Known Issues
+There are some issues that need to be fixed:
+- [No https path in scss](https://github.com/ryanbahniuk/scss-to-json/issues/26).
+- [Variable which including '//' will be regarded as comment](https://github.com/ryanbahniuk/scss-to-json/issues/20).
+- [Not correct variable names with '__'](https://github.com/ryanbahniuk/scss-to-json/issues/19).
+- [Parenthesis not working property](https://github.com/ryanbahniuk/scss-to-json/issues/16).
+- **[Support for maps](https://github.com/ryanbahniuk/scss-to-json/issues/15).**
+- [Leading comments break compiling](https://github.com/ryanbahniuk/scss-to-json/issues/13).
+
+> For `v1.0.0`, we just update dependencies and merging old [pulls](https://github.com/ryanbahniuk/scss-to-json/pulls). The next phase is to fix the issues above!
+
 ## Input and Output
 
 This package requires a SCSS variables file that is isolated by itself with no other SCSS code. If you are working in a front-end framework or library it is likely that your SCSS code is already set up in this manner. For example, this package will work well with a variables.scss file that looks something like this:
