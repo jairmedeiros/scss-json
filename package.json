@@ -13,7 +13,7 @@
     "email": "jairmedeiros@protonmail.com"
   },
   "bin": {
-    "scss-to-json": "./bin/scss-to-json"
+    "scss2json": "./bin/scss2json"
   },
   "repository": {
     "type": "git",
