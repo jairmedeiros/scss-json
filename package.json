@@ -1,33 +1,28 @@
 {
-  "name": "scss-to-json",
-  "version": "2.0.0",
-  "description": "A utility for converting SCSS variables files to JSON",
-  "homepage": "https://github.com/ryanbahniuk/scss-to-json",
+  "name": "scss2json",
+  "version": "1.0.0",
+  "description": "A package to export SCSS variables in JSON format",
+  "homepage": "https://github.com/jairmedeiros/scss2json",
   "keywords": [
     "scss",
+    "sass",
     "json"
   ],
   "author": {
-    "name": "Ryan Bahniuk",
-    "email": "ryan.bahniuk@gmail.com",
-    "url": "http://bahni.uk"
+    "name": "Jair Medeiros",
+    "email": "jairmedeiros@protonmail.com"
   },
   "bin": {
     "scss-to-json": "./bin/scss-to-json"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/ryanbahniuk/scss-to-json.git"
+    "url": "git://github.com/jairmedeiros/scss2json.git"
   },
   "bugs": {
-    "url": "https://github.com/ryanbahniuk/scss-to-json/issues"
+    "url": "https://github.com/jairmedeiros/scss2json/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/ryanbahniuk/scss-to-json/blob/master/LICENSE-MIT"
-    }
-  ],
+  "license": "MIT",
   "main": "main.js",
   "engines": {
     "node": ">= 0.10.0"
