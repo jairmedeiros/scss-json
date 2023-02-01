@@ -31,7 +31,8 @@ function makeObject(declarations, options) {
 
 function filterLines(line) {
   return EMPTY_LINES.every(function(lineValue) {
-    return line !== lineValue && line.slice(0, 2) !== COMMENT_DELIMETER && line.indexOf('@import') < 0;
+    return line !== lineValue && line.slice(0, 2) !== COMMENT_DELIMETER
+        && line.indexOf('@import') < 0 && line.indexOf('@use') < 0;
   });
 }
 
@@ -93,8 +94,14 @@ function declarationsFromString(path, declarationStore, options) {
     data = extractScope(data, options.scope);
   }
 
-  var lines = String(data).split(LINE_DELIMITER).map(normalizeLines).filter(filterLines);
-  return lines.map(function(line) {
+  var lines = String(data).split(LINE_DELIMITER).map(normalizeLines);
+  var useRules = lines.filter(function(line) { return line.match(/^@use .+/); });
+
+  useRules.forEach(function(useRule) {
+    declarationStore.addUseRule(useRule);
+  });
+
+  return lines.filter(filterLines).map(function(line) {
     return new Declaration(line, declarationStore);
   });
 }

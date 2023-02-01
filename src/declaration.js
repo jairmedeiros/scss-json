@@ -23,7 +23,7 @@ Declaration.prototype = {
     var replacedValue = declarationStore.replaceVariables(assignedValue);
 
     this.variable = new Variable(assignedVariable);
-    this.value = new Value(replacedValue);
+    this.value = new Value(replacedValue, declarationStore.useRules);
     this.global = hasGlobalFlag(replacedValue);
 
     declarationStore.addDeclaration(this);

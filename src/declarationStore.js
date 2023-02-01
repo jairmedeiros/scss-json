@@ -2,11 +2,16 @@
 
 function DeclarationStore() {
   this.declarations = [];
+  this.useRules = [];
 }
 
 DeclarationStore.prototype = {
   addDeclaration: function(declaration) {
     this.declarations.push(declaration);
+  },
+
+  addUseRule: function(useRule) {
+    this.useRules.push(useRule);
   },
 
   replaceVariables: function(scssString) {

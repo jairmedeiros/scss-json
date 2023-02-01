@@ -12,9 +12,9 @@ function unwrapValue(value) {
 }
 
 var Compile = {
-  fromString: function(value) {
+  fromString: function(value, useRules) {
     var wrappedValue = wrapValue(value);
-    var s = sass.renderSync({ data: wrappedValue });
+    var s = sass.renderSync({ data: useRules.join(';\n') + ';\n' + wrappedValue });
     var compiled = String(s.css);
     var minifiedCompiled = cssmin(compiled);
     return unwrapValue(minifiedCompiled);
